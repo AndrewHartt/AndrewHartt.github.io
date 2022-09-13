@@ -45,3 +45,7 @@ html {
 .header, .footer {
 max-height: 3.25em;
 }
+
+p + h2 {
+  margin-top: 0em;
+}
