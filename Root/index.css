@@ -2,7 +2,81 @@
 .NormalCharacterStyle
 {
   font-family : Source Sans Variable;
-  font-weight : bold;
   color : #231F20;
   color : rgb(35, 31, 32);
 }
+
+h1 {
+  font-family : Source Sans Variable;
+  font-weight : bolder;
+  font-size: 48px;
+  color : #231F20;
+  color : rgb(35, 31, 32);
+}
+
+h2 {
+  font-family : Source Sans Variable;
+  font-weight : bold;
+  font-size: 36px;
+  color : #231F20;
+  color : rgb(35, 31, 32);
+}
+
+h3{
+  font-family : Source Sans Variable;
+  font-weight: normal;
+  font-size: 24px;
+  color : #231F20;
+  color : rgb(35, 31, 32);
+}
+
+h4{
+  font-family : Source Sans Variable;
+  font-weight : normal;
+  font-size: 21px;
+  color : #231F20;
+  color : rgb(35, 31, 32);
+}
+
+h5{
+  font-family : Source Sans Variable;
+  font-weight : light;
+  font-size: 18px;
+  color : #231F20;
+  color : rgb(35, 31, 32);
+}
+
+h6{
+  font-family : Source Sans Variable;
+  font-weight : lighter;
+  font-size: 14px;
+  color : #231F20;
+  color : rgb(35, 31, 32);
+}
+
+p{
+  font-family : Source Sans Variable;
+  font-weight : light;
+  font-size: 18px;
+  color : #231F20;
+  color : rgb(35, 31, 32);
+}
+
+link{
+  font-family : Source Sans Variable;
+  font-weight : light;
+  font-size: 18px;
+  color : #231F20;
+  color : rgb(35, 31, 32);
+}
+
+hr{
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;
+}
+
