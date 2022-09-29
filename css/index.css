@@ -80,3 +80,39 @@ hr{
   border-width: 1px;
 }
 
+/* Mobile Query */
+@media screen and (max-height: 700px) and(max-width: 400px){
+  .grid{
+    display:grid;
+    grid-template: 
+    "a" 1fr 
+    "b" 1fr 
+    "c" 1fr
+    ;
+    gap: 5px;
+    width: 80%;
+    margin: auto;
+  }
+  body{
+    background: black;
+  }
+}
+
+/* Web Query */
+@media screen and(max-height: 1100px) and(min-width:1080px)and(max-width:1900){
+  .grid{
+    display:grid;
+    grid-template: 
+    "a" 1fr 
+    "b" 1fr 
+    "c" 1fr
+    ;
+    gap: 5px;
+    width: 80%;
+    margin: auto;
+  }
+  body{
+    background: black;
+  }
+}
+

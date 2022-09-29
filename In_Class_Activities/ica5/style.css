@@ -8,7 +8,7 @@
     margin: 0;
     background: rgb(248, 248, 248), linear-gradient();
 
-    background-image: url("/img/top-image.png"), url("/img/bottom-image.png");
+    background-image: url("/In_Class_Activities/ica5/top-image.png"), url("/In_Class_Activities/ica5/bottom-image.png");
     background-repeat: no-repeat;
     background-position: top, bottom;
     background-size: contain, contain;
@@ -30,7 +30,7 @@
     right: 20mm;
   }
   h1 {
-    background-image: url("/img/logo.png");
+    background-image: url("/In_Class_Activities/ica5/logo.png");
     box-shadow: 4px 4px black;
     border-radius: 50%;
     position: absolute;
