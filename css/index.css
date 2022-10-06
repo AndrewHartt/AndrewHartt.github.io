@@ -146,3 +146,19 @@ nav a {
   gap: 1px;
 
 }
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.logo {
+  font-family : Source Sans Variable;
+  font-weight : bold;
+  font-size: 36px;
+  color : #231F20;
+  color : rgb(35, 31, 32);
+  padding: 50px 20px;
+  margin: 0 auto;
+  max-width: 980px;
+}
