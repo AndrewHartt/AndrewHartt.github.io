@@ -81,7 +81,7 @@ hr{
 }
 
 /* Mobile Query */
-@media screen and (max-height: 700px) and(max-width: 400px){
+@media screen and(max-width: 400px){
   .grid{
     display:grid;
     grid-template: 
@@ -99,7 +99,7 @@ hr{
 }
 
 /* Web Query */
-@media screen and(max-height: 1100px) and(min-width:1080px)and(max-width:1900){
+@media screen and(min-width:1080px)and(max-width:1900){
   .grid{
     display:grid;
     grid-template: 
