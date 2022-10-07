@@ -168,6 +168,29 @@ nav a {
   padding: .5em 1em;
 }
 
+
+
+.description a{
+  color: #fff;
+    text-decoration: none;
+    padding: .5em 1em;
+}
+
+.description2 {
+  background-color: #014976;
+  padding: .5em;
+  top: 0;
+  display: flex;
+}
+
+.description2 h4{
+  color:#fff;
+  text-decoration: none;
+  padding: .5em 1em;
+}
+
+
+
 .Big{
   background-color: #0079A9;
   padding: .5em;
@@ -176,6 +199,12 @@ nav a {
 }
 
 .Big h2{
+  color:#fff;
+  text-decoration: none;
+  padding: .5em 1em;
+}
+
+.Big h3{
   color:#fff;
   text-decoration: none;
   padding: .5em 1em;

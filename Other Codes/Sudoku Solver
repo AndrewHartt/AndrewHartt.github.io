@@ -1,0 +1,514 @@
+/* *****************************************************************************
+ *              ALL STUDENTS COMPLETE THESE SECTIONS
+ * Title:            Sudoko Checker
+ * Files:            SudokoChecker.src
+ * Semester:         Spring 2022
+ * 
+ * Author:           Andrew Hart || anha7845@colorado.edu
+ * 
+ * Description:		 Checks a 9x9 sudoko to see if it is correctly written
+ * 
+ * Written:       	 2/14/21
+ * 
+ * Credits:          
+ **************************************************************************** */
+
+
+/**
+ * The SudokuSolver class checks a 9 x 9 sodoku to see if it is correctly done (If
+ * the code finds duplicates it returns the Soduku as non valid, if there are no
+ * duplicates the Soduku is returned as valid).
+ * <p>
+ * 
+ *
+ * <p>
+ * Bugs: (Not a bug but don't leave default 0's in as placeholders as they technically count as duplicates)
+ *
+ * @author (Andrew Hart
+ * 
+ * Credits: Used videos form the YouTube Channel's 'Udacity', 'Joma Tech' and 'Bro Code' as 
+ * well as the forums on their channel to help me understand how to use the 'unique'. Also downloaded
+ * a method package that would allow me to use Array.fill a method built into the package that
+ * initializes unique based on parameters in this case for boolean type methods. 
+ * 
+ */
+import java.util.*;
+
+public class SudokuSolver {
+
+		/**
+		 * Main entry point of the program. Prints out a hardcoded
+		 * sudoku board, then tries to check if the board is valid
+		 * (i.e., no duplicates in any rows, columns, or boxes)
+		 * then tries to solve the board.
+		 *
+		 * @param args  No command-line arguments expected
+		 */
+		
+
+	static int Board = 9;
+
+	
+	public static void main(String[] args) {
+			//int row = board.nextInt();
+			// Here we've hardcoded 2 simple Sudoku boards
+			// for you to use in implementing and testing your methods
+			// Feel free to change the values in these boards (or
+			// create your own boards) to help in testing (e.g., for
+			// testing if other components of your checkBoard method 
+			// works for duplicates in columns and boxes).
+			
+			// board1 is not valid (notice the duplicate 9's in the
+			// first row)
+			int[][] board1 = {{9, 2, 3, 4, 5, 6, 7, 8, 9},
+							  {4, 5, 6, 7, 8, 9, 1, 2, 3},
+							  {7, 8, 9, 1, 2, 3, 0, 5, 0},
+							  {2, 1, 4, 3, 6, 5, 8, 9, 7},
+							  {3, 6, 5, 8, 9, 7, 2, 1, 4},
+							  {8, 9, 7, 2, 1, 4, 0, 6, 5},
+							  {5, 3, 1, 6, 4, 2, 9, 7, 8},
+							  {6, 4, 2, 9, 7, 8, 5, 3, 1},
+							  {9, 7, 8, 5, 3, 1, 6, 4, 0}};
+				
+			// board2 is valid and corresponds to the board in the
+			// easy.txt file. This one should take your computer less
+			// than a second to solve.
+			int[][] board2 =  {{1, 2, 3, 4, 5, 6, 7, 8, 9},
+							   {4, 5, 6, 7, 8, 9, 1, 2, 3},
+							   {7, 8, 9, 1, 2, 3, 4, 5, 6},
+							   {2, 1, 4, 3, 6, 5, 8, 9, 7},
+							   {3, 6, 5, 8, 9, 7, 2, 1, 4},
+							   {8, 9, 7, 2, 1, 4, 3, 6, 5},
+							   {5, 3, 1, 6, 4, 2, 9, 7, 8},
+							   {6, 4, 2, 9, 7, 8, 5, 3, 1},
+							   {9, 7, 8, 5, 3, 1, 6, 4, 0}};	
+			
+			
+			int A = board1.length; // sets an int to board.length as board.length can not be used as a variable because of the . in most situations
+			
+			printBoard(board1); // prints out the 1st board
+			if (checkBoard(board1)) { //checks board1 for any duplicates
+				System.out.println("The board is valid"); //if no duplicates print that board is valid
+				if(solve(board1, A)) { // Checks if board1 can be solved
+					printBoard(board1); //reprints board with solved numbers
+					System.out.println("The board has been solved"); // Prints a statement about board being solved
+			}
+			else {
+				System.out.println("The board could not be solved"); //If board cannot be solved print statement stating so
+			
+				}
+			}
+			else {
+				System.out.println("The board is not valid!"); //If board contains duplicates print board is not valid
+			}
+			printBoard(board2); //Does all the same things for board1 ^, but now for board 2
+			if(checkBoard(board2)) {
+				System.out.println("The board is valid"); 
+				if(solve(board2, A)) {
+					printBoard(board2);
+					System.out.println("The board has been solved");
+				}
+				else {
+					System.out.println("The board could not be solved");
+				}
+			}
+			else {
+				System.out.println("The board is not valid!");
+			}
+		}
+	/** (Not working with solve(int [][] board), trying alternative method solve(int [][] board, int k)
+		if(checkBoard(board) == false) {
+			return false;
+		}
+		if(checkBoard(board) == true) {
+			return true;
+		}
+		else {
+			for(int row = 0; row < Board; row++) {
+				for(int col = 0; col < Board; col++) {
+					if(board[row][col] = 0) {
+						for(int i = 0; i < 9; i++) {
+							board[row][col] = i;
+							if(solve(board)) {
+								GUISudoko.updateSudokuGUI(board);
+								return true;
+							}
+						}
+					}
+					else {
+						board[row][col] = 0;
+						return false;
+					}
+				}
+			}
+		}
+		**/
+	/**
+	1. if (board is invalid): return false;
+	 * 2. if (board is full): return true;
+	 * 
+	 * 3. for each row in board:
+	 * 		for each column in board:
+	 * 3.A)		if (board[row][column] is empty):
+	 * 				for each potential sudoku value 1-9:
+	 * 					set board[row][column] = potential sudoku value
+	 * 					if (solve(board)): 
+	 * 						 GUISudoku.updateSudokuGUI(board); // Updates the GUI to show the solution
+	 * 						 return true;
+	 * 					endif
+	 * 				endfor
+	 * 
+	 * 3.B)			//if we've reached here, the board isn't solveable
+	 * 				set board[row][column] = 0
+	 * 				return false 
+	 * 			endif
+	 * 		endfor
+	 * 	  endfor
+	 * 4. return true;
+	 * **/
+	
+	/**
+		 * Attempts to recursively solve a sudoku board using a backtracking approach.
+		 * The algorithm works as follows:
+		 *   1. Base case 1: if the board is invalid (contains duplicates in
+		 *      any row, column, or box) return false.
+		 *      
+		 *   2. Base case 2: if the board is full, this means we've solved
+		 *      it, so return true 
+		 *      
+		 *   3. Otherwise, iterate through every cell (i.e., every row and column
+		 *      in the board) looking an empty cell (indicated by the
+		 *      cell value being 0). 
+		 *      
+		 *      3.A) If the cell is empty, iteratively try all possible values 
+		 *           1-9 in the cell, calling solve again each time you try a 
+		 *           potential value. If this call to solve returned true,
+		 *           our attempted value solved the board, so call 
+		 *           GUISudoku.updateSudokuGUI(board); to update the GUI to 
+		 *           show the solution and return true (if you are ready to
+		 *           move on to the GUI part. If not, just return true for
+		 *           now).
+		 *           
+		 *      3.B) If we've tried all numbers 1-9 for the cell and none of the
+		 *           calls to solve returned true, then the board is not solvable
+		 *           so return false.
+		 *           
+		 *   4. If we've finished iterating through every cell and haven't already
+		 *      returned, we must have solved the board, so return true.
+		 * 
+		 * Putting this idea into pseudocode results in:
+		 * 
+		 * 1. if (board is invalid): return false;
+		 * 2. if (board is full): return true;
+		 * 
+		 * 3. for each row in board:
+		 * 		for each column in board:
+		 * 3.A)		if (board[row][column] is empty):
+		 * 				for each potential sudoku value 1-9:
+		 * 					set board[row][column] = potential sudoku value
+		 * 					if (solve(board)): 
+		 * 						 GUISudoku.updateSudokuGUI(board); // Updates the GUI to show the solution
+		 * 						 return true;
+		 * 					endif
+		 * 				endfor
+		 * 
+		 * 3.B)			//if we've reached here, the board isn't solveable
+		 * 				set board[row][column] = 0
+		 * 				return false 
+		 * 			endif
+		 * 		endfor
+		 * 	  endfor
+		 * 4. return true;
+		 * 
+		 * You can use the checkBoard method to see if the board is valid (base
+		 * case 1). Create a helper method to determine if the board is
+		 * full or not (base case 2). I've created a GUISudoku.updateSudokuGUI(board); 
+		 * method for you so that you can display the solved board in the GUI, 
+		 * the pseudocode above shows where to put this call.
+		 * 
+		 * Note: this approach may be extremely slow for complex boards with many
+		 * empty cells. 
+		 * **/
+	
+		public static boolean solve(int[][] board, int k) { //This method recognizes 0's in the sudoku grid and solves for the value they are suppose to have
+			boolean unique [] = new boolean[Board + 1];
+			int row = -1;
+			int col = -1;
+			for(int i =0; i < Board; i++) { //checks every value in a row
+				for(int j = 0; j < Board; j++) { // checks every value in a column
+					board[i][j] = k; 
+					if(k == 0) { //if the value in a combined row/column spot = 0 then...v 
+						if(checkBoard(board) == false) {
+							k = 0;
+						}
+						else {
+							return true;
+							//GUISudoku.updateSudokuGUI(board); 
+						}
+						if(checkBoard(board) == false) {
+							k = 1;
+						}
+						else {
+							return true;
+							//GUISudoku.updateSudokuGUI(board); 
+						}
+						if(checkBoard(board) == false) {
+							k = 2;
+						}
+						else {
+							return true;
+							//GUISudoku.updateSudokuGUI(board); 
+						}
+						if(checkBoard(board) == false) {
+							k = 3;
+						}
+						else {
+							return true;
+							//GUISudoku.updateSudokuGUI(board); 
+						}
+						if(checkBoard(board) == false) {
+							k = 4;
+						}
+						else {
+							return true;
+							//GUISudoku.updateSudokuGUI(board); 
+						}
+						if(checkBoard(board) == false) {
+							k = 5; 
+						}
+						else {
+							return true;
+							//GUISudoku.updateSudokuGUI(board); 
+						}
+						if(checkBoard(board) == false) {
+							k = 6; 
+						}
+						else {
+							return true;
+							//GUISudoku.updateSudokuGUI(board); 
+						}
+						if(checkBoard(board) == false) {
+							k = 7;
+						}
+						else {
+							return true;
+							//GUISudoku.updateSudokuGUI(board); 
+						}
+						if(checkBoard(board) == false) {
+							k =8;
+						}
+						else {
+							return true;
+							//GUISudoku.updateSudokuGUI(board); 
+						}
+						if(checkBoard(board) == false) {
+							return false; 
+						}							
+							} 
+							
+						}
+			} 		
+			return true;
+		}
+		
+		/**if(checkBoard(baoard == false)) {
+			return false;
+		}
+		**/
+		
+		
+		
+		
+		
+		
+		
+		
+		/**
+		 * Prints out a sudoku board to the console.
+		 * @param board A 2D array of ints corresponding to a
+		 * 				sudoku board, where 0's indicate empty cells
+		 */
+		public static void printBoard(int[][] board)
+		{
+			System.out.println("---------------------"); // Top of the board
+			for (int row = 0; row < board.length; row++)
+			{
+				for (int col = 0; col < board[row].length; col++)
+				{
+					// Print out an empty space if the cell is 0
+					if (board[row][col] == 0) 
+					{
+						System.out.print("_ ");
+					}
+					else // Otherwise print the sudoku value
+					{
+						System.out.print(board[row][col] + " ");
+					}
+					
+					// Divide the boxes vertically by inserting a 
+					// vertical line every 3 columns
+					if (col % 3 == 2)
+					{
+						System.out.print("| "); 
+					}
+				}
+				// Divide the boxes horizontally by inserting a horizontal
+				// line every 3 rows
+				if (row % 3 == 2)
+				{
+					System.out.println("\n---------------------");
+				}
+				else
+				{
+					System.out.println();
+				}
+			}
+		}
+		
+		/**
+		 * Checks to see if the current board is valid. A valid board is one where
+		 * there are no duplicate values in:
+		 *   -Any row
+		 *   -Any column
+		 *   -Any of the 3x3 subgrids (boxes)
+		 *   
+		 * @param board A 2D array of ints corresponding to a sudoku board where
+		 * 		  		0's indicate an empty cell
+		 * @return True if the board is valid (i.e., does not contain any
+		 * 		   duplicates in any rows, columns, or sub 3x3 boxes
+		 */
+		
+		public static boolean checkBoard(int[][] board) {
+			if(checkRow(board) == false) { //If checkRow is false
+				return false; 			  //return false
+			}
+			if(checkCol(board) == false) { //If checkCol is false
+				return false; 			  //return false
+			}
+			if(checkBox(board) == false) { //If checkBox is false
+				return false; 			  //return false
+			}
+		    return true; //If all the requirements have been met return true
+		}
+		 
+		/**
+		 * Checks to see if any row has any duplicates. A valid row is one where
+		 * there are no duplicate values in any row
+		 * 
+		 * @param board A 2D array of ints corresponding to a soduku board where
+		 * 				0's indicate an empty cell
+		 * 
+		 * @return True if the board is valid (Contains no duplicate values in any row)
+		 */
+		public static boolean checkRow(int[][] board) { // method to check Rows
+			boolean [] unique = new boolean[Board + 1]; // Stores unique values 
+			for(int row = 0; row < Board; row++) { //Goes through each row of Array
+				Arrays.fill(unique, false); //Initializes the Unique utility as well as sets Array to false
+				for(int col = 0; col < Board; col++) { //Goes through each column of Array
+					int Z = board[row][col]; //Stores the values of the board (both rows and columns)
+					
+					// Checks If current row has any duplicates
+					if(unique[Z]) { 
+						if(Z == 0) {
+							return true;
+						}
+						else {
+							return false;
+						}
+					}
+					unique[Z] = true; 
+					}
+				}
+			return true;
+			}
+		
+		/**
+		 * Checks to see if any column (col) has any duplicates. A valid column is
+		 * one where there are no duplicate values in any column
+		 * 
+		 * @param board A 2D array of ints corresponding to a soduku board where
+		 * 				0's indicate an empty cell
+		 * 
+		 * 
+		 * @return True if board is valid (Contains no duplicate values in any column)
+		 */
+		public static boolean checkCol(int[][] board) { //Method to check Column
+			boolean [] unique = new boolean[Board + 1]; //Stores unique values
+			for(int row = 0; row < Board; row++) { //goes through each row
+				Arrays.fill(unique,  false); //Initializes the Unique Utility and sets Array to false
+				for(int col = 0; col < Board; col++) { //goes through each column of array
+					int Z = board[col][row]; //Stores values of board (this time columns come first as we are checking columns for duplicates this time around)
+
+					// Checks If current row has any duplicates
+					if(unique[Z]) { 
+						if(Z == 0) {
+							return true;
+						}
+						else {
+							return false;
+						}
+					}
+					unique[Z] = true; 
+					}
+				}
+			return true;
+			}
+		
+
+		/**
+		 * Checks to see if any box (A 3 x 3 square in the 9 x 9 soduko grid) has any
+		 * duplicates. A valid box is one where no 3 x 3 square has any duplicate values
+		 * 
+		 * @param board A 2D array of ints corresponding to a soduku board where
+		 * 				0's indicate an empty cell
+		 * 
+		 * @return True if board is valid (Conatains no duplicate values in a 3 x 3 square)
+		 */
+		public static boolean checkBox(int[][] board) {
+			boolean [] unique = new boolean[Board + 1]; // Stores unique values form 1 to N(9). 
+			for(int row = 0; row < Board; row +=3) { //for row less then board until it equals 3 is stored
+				for(int col = 0; col < Board; col +=3) { //for col less then board until it equals 3 is stored
+					Arrays.fill(unique, false); //initialize unique & sets array to false
+					for(int i = 0; i < 3; i++) { //works way through rows of current block
+						for(int j = 0; j < 3; j++) { //works way through columns of current block
+							int Rows = row + i; //Stores row number of current block
+							int Cols = col + j; //Stores column number of current block
+							int Grid = board[Rows][Cols]; //Stores both row and column number of current block
+							if(unique[Grid]) { //Checks current block for duplicates using unique utility
+								if(Grid == 0) {
+									return true;
+								}
+								else {
+									return false;
+								}
+							}
+							unique[Grid] = true; 						}
+						}
+					}
+				} 		    
+		    return true; //If all the requirements have been met return true
+		}
+		
+	
+			
+			 /* This method should return true if the board is valid (no duplicates)
+			 * and false otherwise. To solve this, create and implement
+			 * 4 helper methods:
+			 * 	 -checkRow - checks a single row for duplicates
+			 *   -checkColumn - checks a single column for duplicates
+			 *   -checkBoxes - divides the grid into 9 3x3 boxes and calls
+			 *   			   checkBox for each box
+			 *   -checkBox - checks a single 3x3 box for duplicates
+			 *   
+			 * Using these methods, your pseudocode for checkBoard is as follows:
+			 * 	 for (each row in board):
+			 * 		if (row contains duplicate): return false
+			 *   endfor
+			 *   for (each column in board):
+			 *      if (column contains duplicate) return false
+			 *   if (checkBoxes(board) indicates a box contains a duplicate): return false
+			 *   return true; 
+			 */
+			
+		}
+

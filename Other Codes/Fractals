@@ -1,0 +1,102 @@
+/* *****************************************************************************
+ *              ALL STUDENTS COMPLETE THESE SECTIONS
+ * Title:            Fractal Creator
+ * Files:            Lab-5-fractals.src
+ * Semester:         Spring 2021
+ * 
+ * Author:           Andrew Hart || anha7845@colorado.edu
+ * 
+ * Description:		 This program draws a fractal based off simple geometric equations
+ * 
+ * Written:       	 3/1/22
+ * 
+ * Credits:          
+ **************************************************************************** */
+
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+/**
+ * Draws some fractals via recursion.
+ * 
+ * <p>
+ * Bugs: (a list of bugs and other problems)
+ * 
+ * @author (your name)
+ */
+public class Fractals extends Application {
+	
+	// Application width and height, feel free to modify
+	public static final int WIDTH = 600;
+	public static final int HEIGHT = 400;
+
+	/**
+	 * Entry point to the program, simply calls launch to start the JavaFX application.
+	 * 
+	 * @param args No command-line arguments expected
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+	/**
+	 * Main entry point for JavaFX application. Creates a Canvas for drawing 
+	 * fractals in the scene and calls some fractal drawing methods.
+	 * 
+	 * @param stage The main stage for the JavaFX application
+	 */
+	@Override
+	public void start(Stage stage) throws Exception {
+		stage.setTitle("Fractals with JavaFX");
+
+		Group root = new Group();
+		Scene scene = new Scene(root, WIDTH, HEIGHT);
+
+		Canvas canvas = new Canvas(WIDTH, HEIGHT);
+
+		GraphicsContext gc = canvas.getGraphicsContext2D();
+
+		root.getChildren().add(canvas);
+
+		stage.setScene(scene);
+		stage.show();
+		
+		drawRecursiveCircles(WIDTH/2, HEIGHT/2, 350, gc);
+		//drawRecursiveCircles(WIDTH/5, HEIGHT/2, 250, gc);
+	}
+	
+	/**
+	 * Currently just draws a single circle. Modify this method to draw circles recursively
+	 * 
+	 * @param x X-coordinate for circle center
+	 * @param y Y-coordinate for circle center
+	 * @param radius Circle radius
+	 * @param gc GraphicsContext used to draw the circle via gc.strokeOval()
+	 */
+	private void drawRecursiveCircles(int x, int y, int radius, GraphicsContext gc)
+	{
+		// Set the stroke color (i.e., the color of the "pen" that draws the circle)
+		gc.setStroke(Color.FORESTGREEN);
+		
+		// Draw a circle centered at x,y
+		gc.strokeOval(x - radius/2, y - radius/2, radius, radius); //Draws the central circle
+		if(radius >= 10) { //While radius of recursive circles drawn is above 10...
+			drawRecursiveCircles(x + radius/2, y, radius/3, gc); //Each circle drawn's x-cord is increased by half the size of the radius 
+			//gc.setStroke(Color.CRIMSON); //wouldn't change colors after setStroke was already used once
+			drawRecursiveCircles(x - radius/2, y, radius/3, gc); //Each circle drawn's c-cord is decreased by half the size of the radius
+			//gc.setStroke(Color.AQUAMARINE);
+			drawRecursiveCircles(x, y-radius/3, radius/3, gc); //Each circle drawn's y-cord is decreased by a third of the radius size
+			drawRecursiveCircles(x, y+radius/3, radius/3, gc); //Each circles drawn's y-cord is increased by a third of the radius size
+			drawRecursiveCircles(x, y, radius/2, gc); //Each circle drawn radius is half of the previous circle drawn
+			drawRecursiveCircles(x, y, radius/4, gc); //each circle drawn's radius is half of the previous circle drawn
+			//drawRecursiveCircles(x, y*radius/2, radius/2, gc); //Makes non fractal pattern (isn't symmetrical)
+			//drawRecursiveCircles(x, y/radius*2, radius/2, gc); //Makes non fractal pattern (isn't symmetrical)
+		}
+		//recursive cell
+	}
+}
