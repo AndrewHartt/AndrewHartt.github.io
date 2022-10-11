@@ -14,5 +14,5 @@ const btn = document.getElementById('button');
 btn.addEventListener('click', function handleClick() {
   const initialText = 'Click me if you DARE!';
 
-  btn.innerHTML = `<span style="background-color: #007AA4">You caused a distant star to supernova<span>`;
+  btn.innerHTML = `<span style="background-color: #007AA4">You caused a distant star to supernova...those alien lives are on you<span>`;
 });
