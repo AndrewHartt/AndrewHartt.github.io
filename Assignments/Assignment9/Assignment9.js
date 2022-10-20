@@ -1,4 +1,3 @@
-
 const displayedImage = document.querySelector('.displayed-img');
 const thumbBar = document.querySelector('.thumb-bar');
 
@@ -23,9 +22,9 @@ for (const image of images) {
   newImage.setAttribute('src', `images/${image}`);
   newImage.setAttribute('alt', alts[image]);
   thumbBar.appendChild(newImage);
-  newImage.addEventListener('click', e => {
-    displayedImage.src = e.target.src;
-    displayedImage.alt = e.target.alt;
+  newImage.addEventListener('click', a => {
+    displayedImage.src = a.target.src;
+    displayedImage.alt = a.target.alt;
   });
 }
 
