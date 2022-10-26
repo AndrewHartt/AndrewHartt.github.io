@@ -1,11 +1,11 @@
-const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
 
-const width = (canvas.width = window.innerWidth);
-const height = (canvas.height = window.innerHeight);
+const width = canvas.width = window.innerWidth;
+const height = canvas.height = window.innerHeight;
 
 function random(min, max) {
-    const num = math.floor(math.random()*(maz - min + 1)) + min;
+    const num = math.floor(math.random()*(max - min + 1)) + min;
     return num;
    /** return Math.floor(Math.random() * (max - min + 1)) + min;*/
   }
