@@ -7,7 +7,7 @@ const height = canvas.height = window.innerHeight;
 function random(min, max) {
     const num = math.floor(math.random()*(max - min + 1)) + min;
     return num;
-   /** return Math.floor(Math.random() * (max - min + 1)) + min;*/
+
   }
   
   function randomRGB() {
@@ -28,8 +28,8 @@ function random(min, max) {
         ctx.fillStyle = this.color;
         ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         ctx.fill();
-      }
-      update() {
+    }
+    update() {
         if ((this.x + this.size) >= width) {
           this.velX = -(this.velX);
         }
@@ -48,8 +48,8 @@ function random(min, max) {
       
         this.x += this.velX;
         this.y += this.velY;
-      }
-      collisionDetect() {
+    }
+    collisionDetect() {
         for (const ball of balls) {
           if (this !== ball) {
             const dx = this.x - ball.x;
@@ -61,7 +61,7 @@ function random(min, max) {
             }
           }
         }
-      }
+    }
   }
 
  
