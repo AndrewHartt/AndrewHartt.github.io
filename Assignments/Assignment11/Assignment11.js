@@ -8,7 +8,7 @@ const quoteButton2 = document.querySelector('.new-quote2');
 quoteButton2.addEventListener('click', getQuote2);
 
 const endpoint = 'https://catfact.ninja/fact';
-const endpoint2 = 'https://dog-facts-api.herokuapp.com/api/v1/resources/dogs?number=1';
+const endpoint2 = 'https://dog.ceo/api/breeds/image/random';
 
 async function getQuote() {
     console.log('test click worked');
@@ -21,11 +21,11 @@ async function getQuote() {
 
 async function getQuote2() {
         console.log('test click succesful!')
-        let image = await fetch(endpoint2);
+        let text = await fetch(endpoint2);
         let response = await text.text();
         let json_response = JSON.parse(response);
-        console.log(json_response['fact']);
-        displayQuote2(json_response['fact']);
+        console.log(json_response['message']);
+        displayQuote2(json_response['message']);
     }
 
 async function displayQuote(x) {
