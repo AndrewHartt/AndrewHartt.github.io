@@ -189,6 +189,28 @@ nav a {
   padding: .5em 1em;
 }
 
+.classification {
+  background-color:rgb(9, 42, 109);
+  padding: .5em;
+  top: 0;
+  display: flex;
+}
+
+.classification h4{
+  color:#fff;
+  text-decoration: none;
+  padding: .5em 1em;
+}
+
+.classification h5{
+  color:#fff;
+  text-decoration: none;
+  padding: .5em 1em;
+}
+
+.Blank {
+  background-color:white;
+}
 
 
 .Big{
@@ -209,6 +231,8 @@ nav a {
   text-decoration: none;
   padding: .5em 1em;
 }
+
+
 
 .Title {
   background-color: #B4D9F3;
@@ -254,8 +278,8 @@ img {
   position: relative;
   float: middle;
   display: block;
-  width: 250px;
-  height: 400px;
+  width: 500px;
+  height: 800px;
 }
 
 .overlay {
@@ -285,4 +309,6 @@ button {
   float: left;
   cursor: pointer;
 }
+
+
 
