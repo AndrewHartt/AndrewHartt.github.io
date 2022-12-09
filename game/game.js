@@ -7,7 +7,8 @@ canvas.height = innerHeight
 const scoreEl = document.querySelector('#scoreEl')
 const startGameBtn = document.querySelector('#startGameBtn')
 const modalEl = document.querySelector('#modalEl')
-const bigScoreEl = document.querySelector('bigScoreEl')
+const otherScore = document.querySelector('#otherScore')
+
 
 class Player {
     constructor(x, y, radius, color) {
@@ -110,15 +111,7 @@ let projectiles = []
 let enemies = []
 let particles = []
 
-function init() {
- player = new Player(x, y, 10, 'white')
- projectiles = []
- enemies = []
- particles = []
- score = 0
- scoreEl.innerHTML = score
- bigScoreEl.innerHTML = score
-}
+
 
 function spawnEnemies() {
     setInterval(() => {
@@ -150,6 +143,17 @@ function spawnEnemies() {
 
 let animationId
 let score = 0
+
+function init() {
+    player = new Player(x, y, 10, 'white')
+    projectiles = []
+    enemies = []
+    particles = []
+    score = 0
+    scoreEl.innerHTML = score
+    otherScore.innerHTML = score
+}
+
 function animate() {
     animationId = requestAnimationFrame(animate)
     c.fillStyle = 'rgba(0, 0, 0, 0.1'
@@ -180,10 +184,9 @@ function animate() {
 
         //end game
         if(dist - enemy.radius - player.radius < 1) {
-            console.log('go')
            cancelAnimationFrame(animationId)
            modalEl.style.display = 'flex'
-           bigScoreEl.innerHTML = score
+           otherScore.innerHTML = score
         }
 
         projectiles.forEach((projectile, projectileIndex) => {
@@ -200,8 +203,8 @@ function animate() {
 
                 if(enemy.radius - 10 > 5){
 
-                      //increase our score
-                score =+ 100
+                     //increase our score
+                score += 100
                 scoreEl.innerHTML = score
 
                     gsap.to(enemy, {radius: enemy.radius - 10})
@@ -209,9 +212,8 @@ function animate() {
                         projectiles.splice(projectileIndex, 1)
                     }, 0)
                 } else {
-                    //remove completely score increase 
-                      //increase our score
-                score =+ 250
+                    //remove from scene altogether 
+                score += 250
                 scoreEl.innerHTML = score
 
                     setTimeout(() => {
@@ -226,6 +228,7 @@ function animate() {
 
 addEventListener('click', (event) => 
 {
+    console.log(projectiles)
     const angle = Math.atan2(event.clientY - canvas.height / 2, event.clientX - canvas.width /2)
     const velocity = {
         x: Math.cos(angle) * 5,
