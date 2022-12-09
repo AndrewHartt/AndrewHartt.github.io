@@ -183,6 +183,12 @@ nav a {
   display: flex;
 }
 
+.description2 a{
+  color: #fff;
+    text-decoration: none;
+    padding: .5em 1em;
+}
+
 .description2 h4{
   color:rgb(0, 0, 0);
   text-decoration: none;
