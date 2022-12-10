@@ -115,7 +115,7 @@ let particles = []
 
 function spawnEnemies() {
     setInterval(() => {
-        const radius = Math.random() * (30 - 4) + 4
+        const radius = Math.random() * (60 - 4) + 4
 
         let x
         let y
@@ -202,19 +202,19 @@ function animate() {
                 }
                 
 
-                if(enemy.radius - 10 > 5){
+                if(enemy.radius - 15 > 5){
 
                      //increase our score
-                score += 100
+                score += 150
                 scoreEl.innerHTML = score
 
-                    gsap.to(enemy, {radius: enemy.radius - 10})
+                    gsap.to(enemy, {radius: enemy.radius - 15})
                     setTimeout(() => {
                         projectiles.splice(projectileIndex, 1)
                     }, 0)
                 } else {
                     //remove from scene altogether 
-                score += 250
+                score += 300
                 scoreEl.innerHTML = score
 
                     setTimeout(() => {
