@@ -1,3 +1,7 @@
+@font-face {
+  font-family: Source Sans Variable;
+  src: url(/Font/SourceSansVariable-Italic.otf);
+}
 
 .NormalCharacterStyle
 {
