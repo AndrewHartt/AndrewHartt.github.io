@@ -128,7 +128,7 @@ function spawnEnemies() {
             y = Math.random() < 0.5 ? 0 - radius : canvas.height + radius
         }
         
-        const color = `hsl(${Math.random() * 360}, 50%, 50%)`
+        const color = `hsl(${Math.random() * 360}, 80%, 50%)`
 
         const angle = Math.atan2(canvas.height / 2 - y, canvas.width /2 - x)
 
@@ -200,6 +200,7 @@ function animate() {
                     particles.push(
                         new Particle(projectile.x, projectile.y, Math.random() * 2, enemy.color, {x: (Math.random() - 0.5) * (Math.random() * 6), y: (Math.random() - 0.5) * (Math.random() * 6)}))
                 }
+                
 
                 if(enemy.radius - 10 > 5){
 
